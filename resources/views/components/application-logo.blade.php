@@ -1,0 +1,1 @@
+<h1 class="font-bold italic text-black hover:text-gray-600 dark:text-white dark:hover:text-gray-300 text-3xl">IPOST</h1>
