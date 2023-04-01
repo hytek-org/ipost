@@ -3,13 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
-use App\Models\Comment;
+
+use App\Models\PostTag;
+
 use App\Models\TemporaryFile;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use App\Models\Category;
+use App\Models\Tag;
 use Illuminate\Support\Facades\Session;
 
 class BlogController extends Controller
@@ -38,12 +42,14 @@ class BlogController extends Controller
     }
     public function store(Request $request)
     {
+        
         $request->validate([
             'title' => 'required',
             'short_desc' => 'required',
             'image_ipost' => 'required ',
             'content' => 'required',
-            'category_id' => 'required'
+            'category_id' => 'required',
+            'tags' => 'required'
         ]);
         $title = $request->input('title');
         if (Post::latest()->first() !== null) {
@@ -75,6 +81,26 @@ class BlogController extends Controller
                 ]
             );
 
+   // Parse the tags input and create new tags
+
+   
+   $tags = explode(',', $request->tags);
+   $count = 0;
+   foreach ($tags as $tagName) {
+       $tag = Tag::firstOrCreate(['name' => trim($tagName)]);
+    
+      
+        PostTag::Create(['post_id' => $postId,
+        'tag_id' => $tag->id,]);
+       
+        if ($count == 9) {
+            break;
+        }
+    $count++;
+       }
+     
+   
+ 
 
 
             Storage::deleteDirectory('posts/tmp/' . $tmp_file->folder);
@@ -115,9 +141,22 @@ class BlogController extends Controller
     public function show(Post $post)
     {
         $category = $post->category;
-        $comments = Comment::where('post_id', $post->id)->get();
+        
+       
+        
+        $tags = $post->tags()->get();
+        
+       
+      
+        // return view('index', [
+        //     'livewire' => app(InfiniteScroll::class, ['items' => $items]),
+        // ]);
+
+
+
+
         $relatedPosts = $category->posts()->where('id', '!=', $post->id)->latest()->take(3)->get();
-        return view('iposts.single', compact('post', 'relatedPosts', 'comments'));
+        return view('iposts.single', compact('post', 'relatedPosts','tags'));
     }
 
     public function edit(Post $post)
@@ -214,10 +253,33 @@ class BlogController extends Controller
     {
         $posts = Post::latest()->get();
         $categories = Category::latest()->get();
-        return view('dashboard', compact('posts', 'categories'));
+        $user = User::find(auth()->user()->id);
+        $followers = $user->countFollowers();
+        return view('dashboard', compact('posts', 'categories','followers'));
     }
 
 
+    // post like and dislike in single blog page
 
+    public function like(Post $post)
+    {
+        $user = auth()->user();
+        if (!$user->hasLiked($post)) {
+            $user->like($post);
+        }
+
+        return redirect()->back();
+    }
+
+    public function dislike(Post $post)
+    {
+        $user = auth()->user();
+        if (!$user->hasDisliked($post)) {
+            $user->dislike($post);
+        }
+
+        return redirect()->back();
+    }
+ 
 
 }

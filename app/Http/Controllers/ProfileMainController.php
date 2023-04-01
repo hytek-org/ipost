@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ProfileMain;
+
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
@@ -24,17 +25,18 @@ class ProfileMainController extends Controller
     {
         $this->middleware('auth')->except(['shareProfile']);
     }
-    public function index(ProfileMain $profileMain)
+    public function index(User $User)
     {
 
-
-        $profileMains = ProfileMain::where('user_id', Auth::user()->id)->first();
        
-        if ($profileMains === null) {
+        $Users = User::where('id', Auth::user()->id)->first();
+      $img = $Users->img_path;
+      
+        if ($img === null) {
             return view('profile.usercreate');
            
         } 
-        return view('profile.userview', compact('profileMains'));
+        return view('profile.userview', compact('Users'));
        
     }
 
@@ -63,7 +65,7 @@ class ProfileMainController extends Controller
         $request->validate([
             'fname' => 'required',
             'contact_no' => 'required ',
-            'uname' => 'required | unique:profile_mains',
+            
             'gender' => 'required',
             'location' => 'required',
             'profession' => 'required',
@@ -74,7 +76,7 @@ class ProfileMainController extends Controller
         ]);
 
         if ($request->hasFile('fileUpload') && $request->hasFile('fileUpload1')) {
-            // dd($request);
+            
             $image_1 = $request->file('fileUpload');
 
             $image_2 = $request->file('fileUpload1');
@@ -89,7 +91,7 @@ class ProfileMainController extends Controller
             $image_2->storeAs('public/images', $image_2_name);
 
 
-            $uname = $request->input('uname');
+           
             $fname = $request->input('fname');
             $lname = $request->input('lname');
             $gender = $request->input('gender');
@@ -106,13 +108,13 @@ class ProfileMainController extends Controller
             $web_link = $request->input('website_link');
             $img_path = 'storage/public/images/' . $image_1_name;
             $header_img_path = 'storage/public/images/' . $image_2_name;
-            $user_id = Auth::user()->id;
+            
 
 
 
-            ProfileMain::create(
-                [
-                    'uname' => $uname,
+            User::where('id', Auth::user()->id)->update([
+                   
+                    
                     'fname' => $fname,
                     'lname' => $lname,
                     'gender' => $gender,
@@ -129,7 +131,7 @@ class ProfileMainController extends Controller
                     'web_link' => $web_link,
                     'img_path' => $img_path,
                     'header_img_path' => $header_img_path,
-                    'user_id' => $user_id
+                    
                 ]
             );
             Session::flash('message', 'Profile created Successfully');
@@ -144,43 +146,40 @@ class ProfileMainController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\ProfileMain  $profileMain
+     * @param  \App\Models\User  $User
      * @return \Illuminate\Http\Response
      */
-    public function show(ProfileMain $profileMain)
+    public function show(User $User)
     {
         //
-        $profileMains = ProfileMain::where('user_id', Auth::user()->id)->first();
-        // $user_id = Auth::user()->id;
-        // $file1 = ProfileMain::where('user_id', $user_id)->pluck('img_path');
-        // $file2 = ProfileMain::where('user_id', $user_id)->pluck('header_img_path');
+        $Users = User::where('id', Auth::user()->id)->first();
+   
 
 
-
-        return view('profile.userview', compact('profileMains'));
+        return view('profile.userview', compact('Users'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\ProfileMain  $profileMain
+     * @param  \App\Models\User  $User
      * @return \Illuminate\Http\Response
      */
-    public function edit(ProfileMain $profileMain)
+    public function edit(User $User)
     {
         //
-        $profileMain = ProfileMain::where('user_id', Auth::user()->id)->first();
-        return view('profile.useredit', compact('profileMain'));
+        $User = User::where('id', Auth::user()->id)->first();
+        return view('profile.useredit', compact('User'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\ProfileMain  $profileMain
+     * @param  \App\Models\User  $User
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ProfileMain $profileMain)
+    public function update(Request $request, User $User)
     {
         
         
@@ -200,7 +199,7 @@ class ProfileMainController extends Controller
 
         if ($request->hasFile('fileUpload') && $request->hasFile('fileUpload1')) {
             // dd($request);
-            $user_id = Auth::user()->id;
+            $id = Auth::user()->id;
             $image_1 = $request->file('fileUpload');
 
             $image_2 = $request->file('fileUpload1');
@@ -211,8 +210,8 @@ class ProfileMainController extends Controller
             $image_1_name = Str::random(20) . '.' . $image_1_name;
             $image_2_name = $image_2->getClientOriginalName();
             $image_2_name = Str::random(20) . '.' . $image_2_name;
-            $file1 = ProfileMain::where('user_id', Auth::user()->id)->first();
-            $file2 = ProfileMain::where('user_id', Auth::user()->id)->first();
+            $file1 = User::where('id', Auth::user()->id)->first();
+            $file2 = User::where('id', Auth::user()->id)->first();
             
             Storage::delete('public/images/'.$file1->img_path);
             Storage::delete('public/images/'.$file2->header_img_path);
@@ -243,7 +242,7 @@ class ProfileMainController extends Controller
             $header_img_path = 'storage/public/images/' . $image_2_name;
 
 
-            ProfileMain::where('user_id', Auth::user()->id)->update([
+            User::where('id', Auth::user()->id)->update([
                 'uname' => $uname,
                 'fname' => $fname,
                 'lname' => $lname,
@@ -261,7 +260,7 @@ class ProfileMainController extends Controller
                 'web_link' => $web_link,
                 'img_path' => $img_path,
                 'header_img_path' => $header_img_path,
-                'user_id' => $user_id
+                'id' => $id
             ]);
 
        
@@ -276,18 +275,18 @@ class ProfileMainController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\ProfileMain  $profileMain
+     * @param  \App\Models\User  $User
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ProfileMain $profileMain)
+    public function destroy(User $User)
     {
-        $file1 = ProfileMain::where('user_id', Auth::user()->id)->first();
-            $file2 = ProfileMain::where('user_id', Auth::user()->id)->first();
+        $file1 = User::where('id', Auth::user()->id)->first();
+            $file2 = User::where('id', Auth::user()->id)->first();
             
             Storage::delete('public/images/'.$file1->img_path);
             Storage::delete('public/images/'.$file2->header_img_path);
            
-        $profileMain->delete();
+        $User->delete();
 
         Session::flash('message', 'Profile details deleted Successfully');
         return redirect()->back();
@@ -299,10 +298,10 @@ class ProfileMainController extends Controller
     }
 
 
-public function shareProfile(Request $request, ProfileMain $profileMain){
+public function shareProfile(Request $request, User $User){
       
-    $profileMains = ProfileMain::where('uname',$request->uname )->first();
-    return view('profile.userview', compact('profileMains'));
+    $Users = User::where('uname',$request->uname )->first();
+    return view('profile.userview', compact('Users'));
 
 
 

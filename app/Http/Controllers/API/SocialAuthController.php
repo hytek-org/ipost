@@ -34,16 +34,16 @@ class SocialAuthController extends Controller
             return redirect()->to('/dashboard');
         }
     
-        $newUser = new User([
-            'name' => $user->getName(),
-            'email' => $user->getEmail(),
+        // $newUser = new User([
+        //     'name' => $user->getName(),
+        //     'email' => $user->getEmail(),
             
        
           
-        ]);
+        // ]);
     
-        $newUser->save();
-        auth()->login($newUser, true);
+        // $newUser->save();
+        // auth()->login($newUser, true);
     
         return redirect()->to('/dashboard');
     
@@ -69,19 +69,22 @@ class SocialAuthController extends Controller
         if ($existingUser) {
             auth()->login($existingUser, true);
             return redirect()->to('/dashboard');
+        }else{
+            return view('profile.partials.usernameSocial');
+        
         }
     
-        $newUser = new User([
-            'name' => $user->getName(),
-            'email' => $user->getEmail(),
+        // $newUser = new User([
+        //     'name' => $user->getName(),
+        //     'email' => $user->getEmail(),
             
-            'github_id' => $user->id,
-            'github_token' => $user->token,
-            'github_refresh_token' => $user->refreshToken,
-        ]);
+        //     'github_id' => $user->id,
+        //     'github_token' => $user->token,
+        //     'github_refresh_token' => $user->refreshToken,
+        // ]);
     
-        $newUser->save();
-        auth()->login($newUser, true);
+        // $newUser->save();
+        // auth()->login($newUser, true);
     
         return redirect()->to('/dashboard');
     }

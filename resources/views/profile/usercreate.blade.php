@@ -16,6 +16,7 @@
                 <div class="mt-5 md:col-span-2 md:mt-0 mr-10">
                     <form action="{{ route('user.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
+                        @include('includes.flash-info-message')
                         @include('includes.flash-sucess-message')
                         <div class="overflow-hidden shadow sm:rounded-md">
                             <div class="bg-white px-4 py-5 sm:p-6">
@@ -42,16 +43,6 @@
                                         @enderror
                                     </div>
 
-                                    <div class="col-span-6 sm:col-span-4">
-                                        <label for="uname" class="block text-sm font-medium text-gray-700">Set unique
-                                            Username</label>
-                                        <input required type="text" name="uname" placeholder="e.g : ipostuser1"
-                                            id="uname" value="{{ old('uname') }}"
-                                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-                                        @error('uname')
-                                            <p>{{ $message }}</p>
-                                        @enderror
-                                    </div>
 
                                     <div class="col-span-6 sm:col-span-3">
                                         <label for="gender" class="block text-sm font-medium text-gray-700">Gender</label>
@@ -100,7 +91,7 @@
                                         <div class="mt-1">
                                             <textarea id="about" name="about" rows="3"
                                                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                                                placeholder="Hi , I am a ">{{ old('about') }}</textarea>
+                                               maxlength="150" placeholder="Hi , I am a ">{{ old('about') }}</textarea>
                                             @error('about')
                                                 <p>{{ $message }}</p>
                                             @enderror

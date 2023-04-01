@@ -40,9 +40,9 @@
                   </svg>
                 </div>
                 <div>
-                  <span class="block text-2xl font-bold">62</span>
-                  <span class="block text-gray-500">Followers</span>
-                  <span class="block text-red-500">not operable</span>
+                  <span class="block text-2xl font-bold">{{$followers}}</span>
+                  <span class="block text-gray-500">Following</span>
+                  <a class="text-indigo-500 dark:text-indigo-500" href="{{route('show')}}">view</a>
 
                 </div>
               </div>

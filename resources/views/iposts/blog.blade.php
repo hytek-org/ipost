@@ -34,9 +34,8 @@
             <div class="flex flex-wrap sm:flex-row flex-col py-6 mb-12">
                 <h1 class="sm:w-2/5 text-gray-900 dark:text-white font-medium title-font text-2xl mb-2 sm:mb-0">Read Some
                     Popular IPOST</h1>
-                <p class="sm:w-3/5 leading-relaxed text-base sm:pl-10 dark:text-gray-100 pl-0">Street art subway tile salvia
-                    four dollar toast bitters selfies quinoa yuccie synth meditation iPhone intelligentsia prism tofu. Viral
-                    gochujang bitters dreamcatcher.</p>
+                <p class="sm:w-3/5 leading-relaxed text-base sm:pl-10 dark:text-gray-100 pl-0">
+                    Connect, Create, and Share with IPost - Your Ultimate Social Experience</p>
             </div>
         </div>
         <div class="flex flex-wrap justify-evenly  ">
@@ -45,7 +44,7 @@
             @forelse ($posts as $post)
                 <div class="p-4 md:w-1/4 ml-2 mt-4 sm:mb-0 mb-6 dark:bg-black bg-gray-300 rounded-lg ">
                     <div class="rounded-lg h-64 overflow-hidden">
-                        <img alt="content" class="object-cover object-center h-full w-full" src="/storage/posts/{{ $post->img_path }}">
+                        <img alt="content" class="object-cover object-center h-full w-full m-2" src="/storage/posts/{{ $post->img_path }}">
                     </div>
                     <div class="dark:text-gray-100 mt-5  ">
                         <p class="text-xs ">
@@ -59,14 +58,24 @@
                     </div>
                     <h2 class="text-xl font-medium title-font text-gray-900 mt-5 dark:text-gray-100">{{ $post->title }}
                     </h2>
-                    <p class="text-base leading-relaxed mt-2 dark:text-gray-100">{{ $post->short_desc }}</p>
-                    <a class="text-indigo-500 inline-flex items-center mt-3"
-                        href="{{ route('blog.show', $post->slug) }}">Read More
-                        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                            stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
-                            <path d="M5 12h14M12 5l7 7-7 7"></path>
-                        </svg>
-                    </a>
+                    <p class="text-base leading-relaxed mt-2 dark:text-gray-100">{{ $post->short_desc }} ...</p>
+                    
+                    <div class="dark:text-gray-100 mt-5 flex justify-between ">
+                        <p>
+                            <a class="text-indigo-500 inline-flex items-center "
+                            href="{{ route('blog.show', $post->slug) }}">Read More
+                            <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
+                                <path d="M5 12h14M12 5l7 7-7 7"></path>
+                            </svg>
+                        </a>
+
+                        </p>
+                        <p>
+                            <span class="text-xl  mr-3 cursor-pointer "><i class="far fa-heart"></i> {{ $post->likes_count }}</span>
+                            <span class="mr-3 text-xl cursor-pointer "><i class="fa fa-share"></i></span>
+                        </p>
+                    </div>
                 </div>
             @empty
 

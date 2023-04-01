@@ -7,41 +7,7 @@
    href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css"
    rel="stylesheet"
 />
-<style>
-    #container {
-        width: 1000px;
-        margin: 20px auto;
-    }
-    .ck-editor__editable[role="textbox"] {
-        /* editing area */
-        min-height: 200px;
-    }
-    .ck-content .image {
-        /* block images */
-        max-width: 80%;
-        margin: 20px auto;
-    }
-    .ck-content h2 {
-           
-           font-size:32px;
-           font-weight: bold;
-       }
-       .ck-content h3 {
-         
-           font-size:22px;
-           font-weight: 800;
-           
-       }
-       .ck-content h4 {
-         
-           font-size:20px;
-           font-weight: 700;
-       }
-       .ck-content p {
-           
-           font-size:18px;
-       }
-</style>
+
 @endsection
 
 @section('main')
@@ -61,14 +27,14 @@
 
                             <div class="mb-4">
                                 <label for="title" class="text-xl text-gray-600">Title <span class="text-red-500">*</span></label>
-                                <input type="text" class="border-2 border-gray-300 p-2 w-full" name="title" id="title"
+                                <input type="text" class="border-2 border-gray-300 p-2 w-full"  maxlength="60" name="title" id="title"
                                     value="{{old('title')}}" required>
                                 
                          
                             </div>
                             <div class="mb-4">
                             <label class="text-xl text-gray-600">Short Description <span class="text-red-500">*</span></label>
-                            <textarea  name="short_desc" class="border-2 w-full border-gray-500" required>
+                            <textarea  name="short_desc" class="border-2 w-full border-gray-500" maxlength="160" required>
                                 {{old('short_desc')}}
                            </textarea>
                            @error('short_desc')

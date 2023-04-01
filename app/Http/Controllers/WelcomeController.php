@@ -11,7 +11,7 @@ class WelcomeController extends Controller
     //creating index method
     public function index()
     {
-        $posts = Post::latest()->take(4)->get();
+        $posts = Post::latest()->take(6)->get();
 
         return view('welcome',compact('posts'));
     }
@@ -22,7 +22,7 @@ class WelcomeController extends Controller
 
         Auth::logout();
 
-        $posts = Post::latest()->take(4)->get();
+        $posts = Post::latest()->take(6)->get();
 
         return view('welcome',compact('posts'));
     }

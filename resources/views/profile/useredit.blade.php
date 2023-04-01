@@ -14,7 +14,7 @@
               </div>
           </div>
           <div class="mt-5 md:col-span-2 md:mt-0 mr-10">
-              <form action="{{ route('user.update',$profileMain) }}" method="POST" enctype="multipart/form-data">
+              <form action="{{ route('user.update',$User) }}" method="POST" enctype="multipart/form-data">
                 @method('put')
                 @csrf 
                 @include('includes.flash-sucess-message') 
@@ -24,7 +24,7 @@
                               <div class="col-span-6 sm:col-span-3">
                                   <label for="first-name" class="block text-sm font-medium text-gray-700">First
                                       name</label>
-                                  <input  type="text" name="fname" value="{{ $profileMain->fname }}"
+                                  <input  type="text" name="fname" value="{{ $User->fname }}"
                                       id="first-name"
                                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                                   @error('first-name')
@@ -38,7 +38,7 @@
                               <div class="col-span-6 sm:col-span-3">
                                   <label for="last-name" class="block text-sm font-medium text-gray-700">Last
                                       name</label>
-                                  <input type="text" name="lname" id="last-name" value="{{ $profileMain->lname }}"
+                                  <input type="text" name="lname" id="last-name" value="{{ $User->lname }}"
                                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                                   @error('last-name')
                                       <p>{{ $message }}</p>
@@ -73,7 +73,7 @@
                                   <label for="profession"
                                       class="block text-sm font-medium text-gray-700">Profession</label>
                                   <input  type="text" name="profession" id="profession"
-                                      value="{{ $profileMain->profession }}"
+                                      value="{{ $User->profession }}"
                                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                                   @error('profession')
                                       <p>{{ $message }}</p>
@@ -83,7 +83,7 @@
                                 <label for="contact_no"
                                     class="block text-sm font-medium text-gray-700">Contact Number</label>
                                 <input required   type="tel" name="contact_no" id="contact_no"
-                                    value="{{ $profileMain->contact_no }}"
+                                    value="{{ $User->contact_no }}"
                                     class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                                 @error('contact_no')
                                     <p>{{ $message }}</p>
@@ -92,9 +92,9 @@
                               <div class="col-span-6">
                                   <label for="about" class="block text-sm font-medium text-gray-700">About</label>
                                   <div class="mt-1">
-                                      <textarea id="about" name="about" rows="3"
+                                      <textarea id="about" name="about" rows="3"maxlength="150"
                                           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                                          placeholder="Hi , I am a ">{{ $profileMain->short_desc }}</textarea>
+                                          placeholder="Hi , I am a ">{{ $User->short_desc }}</textarea>
                                       @error('about')
                                           <p>{{ $message }}</p>
                                       @enderror
@@ -105,7 +105,7 @@
                               <div class="col-span-6 sm:col-span-6 lg:col-span-2">
                                   <label for="facebook_link"
                                       class="block text-sm font-medium text-gray-700">Facebook</label>
-                                  <input type="text" name="facebook_link" value="{{ $profileMain->facebook_link }}"
+                                  <input type="text" name="facebook_link" value="{{ $User->facebook_link }}"
                                       id="facebook_link" placeholder="https://www.facebook.com/hytek21"
                                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                                   @error('facebook_link')
@@ -116,7 +116,7 @@
                               <div class="col-span-6 sm:col-span-3 lg:col-span-2">
                                   <label for="twitter_link"
                                       class="block text-sm font-medium text-gray-700">Twitter</label>
-                                  <input type="text" name="twitter_link" value="{{ $profileMain->twitter_link }}"
+                                  <input type="text" name="twitter_link" value="{{ $User->twitter_link }}"
                                       id="twitter_link" placeholder="https://twitter.com/HYTEK21"
                                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                                   @error('twitter_link')
@@ -128,7 +128,7 @@
                                   <label for="linkedin_link"
                                       class="block text-sm font-medium text-gray-700">Linkdin</label>
                                   <input type="text" name="linkedin_link" id="linkedin_link"
-                                      value="{{ $profileMain->linkedin_link }}" placeholder="https://www.linkedin.com"
+                                      value="{{ $User->linkedin_link }}" placeholder="https://www.linkedin.com"
                                       autocomplete="postal-code"
                                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                                   @error('linkedin_link')
@@ -139,7 +139,7 @@
                                   <label for="instagram_link"
                                       class="block text-sm font-medium text-gray-700">Instagram</label>
                                   <input type="text" name="instagram_link" id="instagram_link"
-                                      value="{{ $profileMain->instagram_link }}"
+                                      value="{{ $User->instagram_link }}"
                                       placeholder="https://www.instagram.com/hytek21/"
                                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                                   @error('instagram_link')
@@ -151,7 +151,7 @@
                                   <label for="youtube_link"
                                       class="block text-sm font-medium text-gray-700">Youtube</label>
                                   <input type="text" name="youtube_link" id="youtube_link"
-                                      value="{{ $profileMain->youtube_link }}" placeholder="https://www.youtube.com/"
+                                      value="{{ $User->youtube_link }}" placeholder="https://www.youtube.com/"
                                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                                   @error('youtube_link')
                                       <p>{{ $message }}</p>
@@ -162,7 +162,7 @@
                                   <label for="github_link"
                                       class="block text-sm font-medium text-gray-700">Github</label>
                                   <input type="text" name="github_link"
-                                      id="github_link"value="{{ $profileMain->github_link }}"
+                                      id="github_link"value="{{ $User->github_link }}"
                                       placeholder="https://github.com/hytek-org"
                                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                                   @error('github_link')
@@ -173,7 +173,7 @@
                                   <label for="website_link"
                                       class="block text-sm font-medium text-gray-700">Website</label>
                                   <input type="text" name="website_link"
-                                      id="website_link"value="{{ $profileMain->website_link }}"
+                                      id="website_link"value="{{ $User->website_link }}"
                                       placeholder="https://hytek.org.in"
                                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                                   @error('website_link')
@@ -198,7 +198,7 @@
                                   </div>
                               </div>
 <div>
-    <input type="text"name="uname" value="{{$profileMain->uname}}"class="sr-only">
+    <input type="text"name="uname" value="{{$User->uname}}"class="sr-only">
 </div>
                               <div class="col-span-6">
                                   <label class="block text-sm font-medium text-gray-700">Cover photo</label>

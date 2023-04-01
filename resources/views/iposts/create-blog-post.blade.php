@@ -2,58 +2,20 @@
 @section('head')
     <title>
         hello create</title>
-    <script src="https://cdn.ckeditor.com/ckeditor5/36.0.0/classic/ckeditor.js"></script>
+        <script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
 
     <link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet" />
     <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet" />
-    <style>
-        #container {
-            width: 1000px;
-            margin: 20px auto;
-        }
-
-        .ck-editor__editable[role="textbox"] {
-            /* editing area */
-            min-height: 200px;
-        }
-
-        .ck-content .image {
-            /* block images */
-            max-width: 80%;
-            margin: 20px auto;
-        }
-
-        .ck-content h2 {
-           
-            font-size:32px;
-            font-weight: bold;
-        }
-        .ck-content h3 {
-          
-            font-size:22px;
-            font-weight: 800;
-            
-        }
-        .ck-content h4 {
-          
-            font-size:20px;
-            font-weight: 700;
-        }
-        .ck-content p {
-            
-            font-size:18px;
-        }
-    </style>
-
    
+
 @endsection
 
 @section('main')
     <!-- component -->
     <div class="py-12 pt-32">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 bg-white border-b border-gray-200">
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 bg-white dark:bg-gray-800  border-b border-gray-200">
 
                     @include('includes.flash-sucess-message')
 
@@ -64,17 +26,17 @@
                         @csrf
 
                         <div class="mb-4">
-                            <label for="title" class="text-xl text-gray-600">Title <span
+                            <label for="title" class="block mb-2 text-xl font-medium text-gray-900 dark:text-white">Title <span
                                     class="text-red-500">*</span></label>
-                            <input type="text" class="border-2 border-gray-300 p-2 w-full" name="title" id="title"
+                            <input type="text" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write your title here with separated by (,)..." maxlength="60" name="title" id="title"
                                 value="{{ old('title') }}" required>
 
 
                         </div>
                         <div class="mb-4">
-                            <label class="text-xl text-gray-600">Short Description <span
+                            <label class="block mb-2 text-xl font-medium text-gray-900 dark:text-white">Short Description <span
                                     class="text-red-500">*</span></label>
-                            <textarea name="short_desc" class="border-2 w-full border-gray-500" required>
+                            <textarea name="short_desc" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write your short description here with separated by (,)..." maxlength="160" required>
                             {{ old('short_desc') }}
                        </textarea>
                             @error('short_desc')
@@ -82,7 +44,7 @@
                             @enderror
                         </div>
                         {{-- dropdown for tags or category --}}
-                        <label for="categories"><span>Choose a Category</span></label>
+                        <label for="categories" class="block mb-2 text-xl font-medium text-gray-900 dark:text-white" ><span>Choose a Category</span></label>
                         <select name="category_id" id="categories">
                             <option selected disabled>select option</option>
 
@@ -94,11 +56,16 @@
                             @enderror
                         </select>
 
+                        <label for="tags" class="block mt-2 mb-2 text-xl font-medium text-gray-900 dark:text-white">Tags:</label>
+                        <textarea name="tags" id="tags" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write your tags here with separated by (,)..."></textarea>
+                        @error('tags')
+                        <p>{{ $message }}</p>
+                    @enderror
 
 
                         <div class="mb-8">
-                            <label class="text-xl text-gray-600">Content <span class="text-red-500">*</span></label>
-                            <textarea id="editor" name="content" class="border-2  border-gray-500" required>
+                            <label class="block mb-2 mt-2 text-xl font-medium text-gray-900 dark:text-white">Content <span class="text-red-500">*</span></label>
+                            <textarea id="content" name="content" class="border-2  border-gray-500" required>
                                 {{ old('content') }}
                            </textarea>
                             @error('content')
@@ -106,7 +73,7 @@
                             @enderror
                         </div>
                         <div class="mb-8">
-                            <label for="image_ipost" class="text-xl text-gray-600">Image <span
+                            <label for="image_ipost" class="block mb-2 mt-2 text-xl font-medium text-gray-900 dark:text-white">Image <span
                                     class="text-red-500">*</span></label>
                             <input type="file" required name="image_ipost" class="filepond" id="image_ipost"
                                 accept="image/*" data-max-file-size="3MB" data-max-files="1" />
@@ -118,7 +85,7 @@
 
                         <div class="">
 
-                            <p>Save and Publish</p>
+                            <p class="block mb-2 text-xl font-medium text-gray-900 dark:text-white">Save and Publish</p>
 
 
                             <button role="submit"
@@ -142,13 +109,9 @@
 @endsection
 
 @section('script')
-    <script>
-        ClassicEditor
-            .create(document.querySelector('#editor'))
-            .catch(error => {
-                console.error(error);
-            });
-    </script>
+<script>
+    CKEDITOR.replace('content');
+</script>
     <script src="https://unpkg.com/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.js"></script>
 
     <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>

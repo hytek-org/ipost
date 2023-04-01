@@ -19,7 +19,7 @@
                     <div class="mb-4">
                         <label class="text-xl text-gray-600">Category Title <span class="text-red-500">*</span></label>
                         <input type="text" class="border-2 border-gray-300 p-2 w-full" name="name" id="title"
-                            value="{{$category->name}}" required>
+                            value="{{$category->name}}"  maxlength="60" required>
                             @error('name')
                                 <p>{{$message}}</p>
                             @enderror
@@ -29,7 +29,7 @@
 
                     <div class="mb-8">
                         <label class="text-xl text-gray-600">Category Content <span class="text-red-500">*</span></label>
-                        <textarea  name="content" class="border-2 border-gray-500" required>
+                        <textarea  name="content" class="border-2 border-gray-500" maxlength="160" required>
                             {{$category->cat_desc}}
                        </textarea>
                        @error('content')

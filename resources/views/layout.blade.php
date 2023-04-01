@@ -18,7 +18,7 @@
     <!-- This is used to run the tailwind css -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     
-    <script  src="https://kit.fontawesome.com/5d3ae8240b.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/5d3ae8240b.js" crossorigin="anonymous"></script>
     @yield('head')
 </head>
 
@@ -28,9 +28,9 @@
     <div class=" bg-gray-100 dark:bg-gray-900">
         @include('layouts.navigation')
 
-        @yield('header')
+       
     </div>
-
+    @yield('header')
    
 
 
@@ -142,7 +142,7 @@
     
     @yield('script')
    
-   
+    <script src="https://kit.fontawesome.com/5d3ae8240b.js" crossorigin="anonymous"></script>   
 </body>
 
 </html>

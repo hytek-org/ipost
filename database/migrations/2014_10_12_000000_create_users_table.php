@@ -20,7 +20,25 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable();
-            
+            $table->string('uname')->nullable()->unique();
+            $table->string('fname')->nullable();
+            $table->string('lname')->nullable();
+            $table->string('gender')->nullable();
+            $table->string('contact_no')->nullable();
+            $table->string('location')->nullable();
+            $table->string('profession')->nullable();
+            $table->text('short_desc')->nullable();
+            $table->string('facebook_link')->nullable();
+            $table->string('insta_link')->nullable();
+            $table->string('twitter_link')->nullable();
+            $table->string('youtube_link')->nullable();
+            $table->string('linkdin_link')->nullable();
+            $table->string('github_link')->nullable();
+            $table->string('web_link')->nullable();
+
+
+            $table->string('img_path')->nullable();
+            $table->string('header_img_path')->nullable();
            
             $table->rememberToken();
             $table->timestamps();

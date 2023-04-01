@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'uname', 'fname', 'lname', 'gender', 'contact_no', 'location', 'profession', 'short_desc', 'facebook_link', 'insta_link', 'twitter_link', 'youtube_link', 'linkdin_link', 'github_link', 'web_link', 'img_path', 'header_img_path', 'user_id'
     ];
 
     /**
@@ -47,6 +48,19 @@ class User extends Authenticatable
         return $this->hasMany(Post::class);
     }
 
+    public function follows()
+    {
+        return $this->belongsToMany(User::class, 'followers', 'follower_id', 'following_id')->withTimestamps();
+    }
+    public function countFollowers()
+{
+     
+    return $this->follows()->count();
+}
 
+    public function categories()
+    {
+        return $this->hasMany(Category::class);
+    }
 
 }

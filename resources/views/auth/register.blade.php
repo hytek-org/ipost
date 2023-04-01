@@ -11,10 +11,15 @@
         <!-- Name -->
         <div>
             <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus />
+            <x-text-input id="name" class="block mt-1 mb-2 w-full" type="text" name="name" :value="old('name')" required autofocus />
             <x-input-error :messages="$errors->get('name')" class="mt-2" />
         </div>
-
+  <!-- UName -->
+  <div>
+    <x-input-label for="uname" :value="__('User Name')" />
+    <x-text-input id="uname" class="block mt-2 w-full" type="text" name="uname" :value="old('uname')" required autofocus />
+    <x-input-error :messages="$errors->get('uname')" class="mt-2" />
+</div>
         <!-- Email Address -->
         <div class="mt-4">
             <x-input-label for="email" :value="__('Email')" />
