@@ -45,7 +45,7 @@ IPOST is a modern and versatile blogging platform that provides a great user exp
 + MySQL
 + Node.js and npm
 ## Installation
-1. Clone the repository: git clone https://github.com/kuldeepsharma1/ipost.git
+1. Clone the repository: git clone https://github.com/hytek-org/ipost.git
 2. Navigate to the project directory: cd ipost
 3. Install the dependencies: composer install
 4. Create a .env file with your database and other configurations.
